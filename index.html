@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lamp Sign In</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main class="stage" id="stage">
+            <section class="scene" id="scene">
+                <div class="glow"></div>
+                <div class="dust" id="dust"></div>
+
+                <svg class="lamp" viewBox="0 0 420 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Desk lamp with a pull cord">
+                    <defs>
+                        <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#4a5262"/>
+                            <stop offset="1" stop-color="#14181f"/>
+                        </linearGradient>
+                        <linearGradient id="shade" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#586174"/>
+                            <stop offset="0.55" stop-color="#232834"/>
+                            <stop offset="1" stop-color="#0d1016"/>
+                        </linearGradient>
+                        <radialGradient id="bulbOn" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" stop-color="#fffbe6"/>
+                            <stop offset="0.6" stop-color="#ffd56a"/>
+                            <stop offset="1" stop-color="#e8a93a"/>
+                        </radialGradient>
+                        <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#ffd678" stop-opacity="0.6"/>
+                            <stop offset="1" stop-color="#ffd678" stop-opacity="0"/>
+                        </linearGradient>
+                        <radialGradient id="floor" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" stop-color="#ffc864" stop-opacity="0.5"/>
+                            <stop offset="1" stop-color="#ffc864" stop-opacity="0"/>
+                        </radialGradient>
+                        <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="7"/>
+                        </filter>
+                    </defs>
+
+                    <ellipse class="floor-glow" cx="232" cy="560" rx="200" ry="36" fill="url(#floor)"/>
+                    <polygon class="cone" points="172,154 292,154 412,560 52,560" fill="url(#cone)" filter="url(#soft)"/>
+
+                    <ellipse cx="150" cy="566" rx="66" ry="12" fill="url(#metal)"/>
+                    <path d="M104 562 Q150 522 196 562 Z" fill="url(#metal)"/>
+                    <path d="M150 540 C150 400 150 214 232 118" stroke="url(#metal)" stroke-width="10" fill="none" stroke-linecap="round"/>
+                    <circle cx="150" cy="536" r="9" fill="#2a303c"/>
+
+                    <circle class="bulb" cx="232" cy="156" r="12"/>
+                    <path d="M168 152 C168 92 296 92 296 152 Z" fill="url(#shade)"/>
+                    <path d="M178 128 C190 108 214 100 236 100" stroke="#8c97ad" stroke-opacity="0.45" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="232" cy="152" rx="64" ry="7" fill="#0b0d12"/>
+
+                    <g class="cord" id="cord" role="button" tabindex="0" aria-label="Pull the cord to switch the lamp on or off" aria-pressed="false">
+                        <rect x="164" y="150" width="52" height="150" fill="transparent"/>
+                        <line x1="190" y1="154" x2="190" y2="268" stroke="#b8893a" stroke-width="2"/>
+                        <circle cx="190" cy="278" r="9" fill="#e8b84b"/>
+                        <circle cx="187" cy="275" r="3" fill="#fff3c4" fill-opacity="0.8"/>
+                    </g>
+                </svg>
+
+                <p class="hint" id="hint">Pull the cord to turn on the light</p>
+            </section>
+
+            <section class="panel" id="panel">
+                <div class="card" id="card" inert>
+                    <div class="welcome" id="welcome" hidden>
+                        <div class="avatar" id="avatar">A</div>
+                        <h2 id="welcome-name">Welcome</h2>
+                        <p class="sub" id="welcome-email"></p>
+                        <p class="welcome-note">You are signed in. Your account is saved in this browser.</p>
+                        <button class="submit" type="button" id="logout"><span class="label">Sign Out</span><span class="arrow">&rarr;</span></button>
+                    </div>
+
+                    <div class="auth" id="auth">
+                    <span class="badge"><i></i>Members area</span>
+                    <h1 id="title">Welcome Back</h1>
+                    <p class="sub" id="subtitle">Please enter your details to sign in</p>
+
+                    <div class="tabs" role="tablist">
+                        <button class="tab active" type="button" role="tab" data-tab="login" aria-selected="true">Sign In</button>
+                        <button class="tab" type="button" role="tab" data-tab="signup" aria-selected="false">Create Account</button>
+                        <span class="indicator" id="indicator"></span>
+                    </div>
+
+                    <form class="form active" id="login-form" novalidate>
+                        <div class="field">
+                            <label for="login-email">Email Address</label>
+                            <div class="input-wrap">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                                <input type="email" id="login-email" name="email" autocomplete="email" placeholder="you@example.com">
+                            </div>
+                            <small class="error" id="login-email-error"></small>
+                        </div>
+
+                        <div class="field">
+                            <div class="label-row">
+                                <label for="login-password">Password</label>
+                                <button class="link" type="button" id="forgot">Forgot password?</button>
+                            </div>
+                            <div class="input-wrap">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                                <input type="password" id="login-password" name="password" autocomplete="current-password" placeholder="Enter your password">
+                                <button class="eye" type="button" data-target="login-password" aria-label="Show password">
+                                    <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 6.1A9.7 9.7 0 0 1 12 6c6 0 10 6 10 6a17 17 0 0 1-3.2 3.9M6.5 7.6A17 17 0 0 0 2 12s4 6 10 6a9.8 9.8 0 0 0 4-.9"/></svg>
+                                </button>
+                            </div>
+                            <small class="error" id="login-password-error"></small>
+                        </div>
+
+                        <label class="check">
+                            <input type="checkbox" id="remember" checked>
+                            <span class="box"></span>
+                            <span>Remember me for 30 days</span>
+                        </label>
+
+                        <button class="submit" type="submit"><span class="label">Sign In to Account</span><span class="arrow">&rarr;</span></button>
+                    </form>
+
+                    <form class="form" id="signup-form" novalidate>
+                        <div class="field">
+                            <label for="signup-name">Full Name</label>
+                            <div class="input-wrap">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+                                <input type="text" id="signup-name" name="name" autocomplete="name" placeholder="Your full name">
+                            </div>
+                            <small class="error" id="signup-name-error"></small>
+                        </div>
+
+                        <div class="field">
+                            <label for="signup-email">Email Address</label>
+                            <div class="input-wrap">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                                <input type="email" id="signup-email" name="email" autocomplete="email" placeholder="you@example.com">
+                            </div>
+                            <small class="error" id="signup-email-error"></small>
+                        </div>
+
+                        <div class="field">
+                            <label for="signup-password">Password</label>
+                            <div class="input-wrap">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                                <input type="password" id="signup-password" name="new-password" autocomplete="new-password" placeholder="At least 8 characters">
+                                <button class="eye" type="button" data-target="signup-password" aria-label="Show password">
+                                    <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 6.1A9.7 9.7 0 0 1 12 6c6 0 10 6 10 6a17 17 0 0 1-3.2 3.9M6.5 7.6A17 17 0 0 0 2 12s4 6 10 6a9.8 9.8 0 0 0 4-.9"/></svg>
+                                </button>
+                            </div>
+                            <div class="strength"><span id="strength-bar"></span></div>
+                            <small class="strength-text" id="strength-text">Use letters, numbers and symbols</small>
+                            <small class="error" id="signup-password-error"></small>
+                        </div>
+
+                        <div class="field">
+                            <label for="signup-confirm">Confirm Password</label>
+                            <div class="input-wrap">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                                <input type="password" id="signup-confirm" name="confirm-password" autocomplete="new-password" placeholder="Repeat your password">
+                            </div>
+                            <small class="error" id="signup-confirm-error"></small>
+                        </div>
+
+                        <label class="check">
+                            <input type="checkbox" id="terms">
+                            <span class="box"></span>
+                            <span>I agree to the terms and conditions</span>
+                        </label>
+                        <small class="error" id="terms-error"></small>
+
+                        <button class="submit" type="submit"><span class="label">Create My Account</span><span class="arrow">&rarr;</span></button>
+                    </form>
+
+                    <div class="divider"><span>or continue with</span></div>
+
+                    <div class="social">
+                        <button class="social-btn" type="button" data-provider="Google"><b>G</b>Google</button>
+                        <button class="social-btn" type="button" data-provider="GitHub"><b>&lt;/&gt;</b>GitHub</button>
+                    </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+        <script src="storage.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
